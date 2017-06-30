@@ -21,14 +21,9 @@ def hybrid(T):
         for bcde_v in bcde_variables:
             bjde_v_name = bcde_v.name.replace('bcde/','bjde/')
             bjde_v_list = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, bjde_v_name)
-            if len(bjde_v_list) > 0:
-                assert len(bjde_v_list) == 1
-                print "Pairing {:s}".format(bcde_v.name)
-                l2 += [tf.nn.l2_loss(bcde_v - bjde_v_list[0])]
-            else:
-                print "Unable to find {:s}".format(bjde_v_name)
-                belongs_to_y =  'dec/y' in bcde_v.name or 'enc/y' in bcde_v.name
-                assert belongs_to_y
+            assert len(bjde_v_list) == 1
+            print "Pairing {:s}".format(bcde_v.name)
+            l2 += [tf.nn.l2_loss(bcde_v - bjde_v_list[0])]
 
         l2_loss = tf.add_n(l2)
         return l2_loss
