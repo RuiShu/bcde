@@ -68,8 +68,7 @@ def bjde_x(x, reuse=None):
 
         with tf.name_scope('loss') as sc:
             loss = tf.reduce_mean(per_sample_loss([[z, z_post, z_prior]],
-                                                  [[x, x_logits]]),
-                                  name=sc)
+                                                  [[x, x_logits]]))
     return loss
 
 def bjde_y(y, reuse=None):
@@ -88,8 +87,7 @@ def bjde_y(y, reuse=None):
         with tf.name_scope('loss') as sc:
             loss = tf.reduce_mean(per_sample_loss([[z1, z1_post, z1_prior],
                                                    [z2, z2_post, z2_prior]],
-                                                  [[y, y_logits]]),
-                              name=sc)
+                                                  [[y, y_logits]]))
     return loss
 
 def bjde_xy(x, y, reuse_x=False, reuse_y=False, reuse_xy=False):
@@ -119,8 +117,7 @@ def bjde_xy(x, y, reuse_x=False, reuse_y=False, reuse_xy=False):
             loss = tf.reduce_mean(per_sample_loss([[z1, z1_post, z1_prior],
                                                    [z2, z2_post, z2_prior]],
                                                   [[x, x_logits],
-                                                   [y, y_logits]]),
-                                  name=sc)
+                                                   [y, y_logits]]))
     return loss
 
 def bcde(x, y, iw, reuse_x=False, reuse_y=False, reuse_xy=False):
@@ -155,5 +152,5 @@ def bcde(x, y, iw, reuse_x=False, reuse_y=False, reuse_xy=False):
             ps_loss = tf.reshape(ps_loss, [iw, -1])
             # Employ IS: [log of average of (p_i / q_i)] for i = 1,...,iw
             ps_gain = tb.tbutils.log_sum_exp(-ps_loss, axis=0) - tf.log(tf.cast(iw, 'float32'))
-            loss = tf.negative(tf.reduce_mean(ps_gain), name=sc)
+            loss = tf.negative(tf.reduce_mean(ps_gain))
     return loss
