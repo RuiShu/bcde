@@ -146,5 +146,7 @@ def main():
     train(T.train_step, T.loss, mnist, iterep, args.n_epochs)
 
 if __name__ == '__main__':
-    assert '1.1.0' in tf.__version__, "Library only tested in version 1.1.0"
+    import warnings
+    if '1.1.0' not in tf.__version__:
+        warnings.warn("Library only tested in tf=1.1.0")
     main()
