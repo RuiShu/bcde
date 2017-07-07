@@ -5,10 +5,10 @@ This work was done while interning at Adobe Systems.
 
 ## Dependencies
 
-Please make sure to install the following dependencies
+Please make sure to pip install the following dependencies
 ```
-pip install --upgrade tensorflow
-pip install tensorbayes
+tensorflow-gpu==1.1.0
+tensorbayes==0.1.1
 ```
 
 ## Example
